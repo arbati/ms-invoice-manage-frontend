@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from './products';
 
-const baseUrl = "http://localhost:8080/MS-PRODUCT/api/v1/product"
+const baseUrl = "http://localhost:8080/MS-PRODUCT/sapi/v1/product"
 
 @Injectable({
   providedIn: 'root'
