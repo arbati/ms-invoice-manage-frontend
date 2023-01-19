@@ -1,4 +1,9 @@
-export class Products {
+export class Product {
     id:number;
-    nom:string;
+    designation:string;
+    price:number;
+    photo:string;
+    depositQuantity:number;
+    expirationDate:Date;
+    shortDescription:string
 }
