@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InvoiceService {
+    uri:string;
 
   constructor() { }
 }
