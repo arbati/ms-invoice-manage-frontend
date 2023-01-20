@@ -7,13 +7,15 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { ListproductsComponent } from './listproducts/listproducts.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ListproductsComponent,
-    AddproductComponent
+    AddproductComponent,
+    EditproductComponent
   ],
   imports: [
     CommonModule,
