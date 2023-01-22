@@ -15,9 +15,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'person-outline',
     children: [
       {
-        title: 'list',
+        title: 'Customers List',
+        icon:'people-outline',
         link: '/pages/customers/list',
-      }]
+      },
+      {
+        title:'Add Customer',
+        icon:'plus-outline',
+        link: '/pages/customers/add',
+      }
+    ]
   },
   {
     title: 'Product',
