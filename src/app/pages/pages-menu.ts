@@ -40,9 +40,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'layout-outline',
     children: [
       {
-        title: 'list',
+        title: 'Invoice List',
         link: '/pages/invoice/list',
-      }]
+      },
+      {
+        title: 'Add Invoice',
+        link: '/pages/invoice/add',
+      }
+    ]
   },
   {
     title: 'Tools',

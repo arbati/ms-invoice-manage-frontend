@@ -21,8 +21,8 @@ const routes: Routes = [{
       path: 'edit/:id',
       component: EditproductComponent,
     },
-  ]
-  }]
+  ]}
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
