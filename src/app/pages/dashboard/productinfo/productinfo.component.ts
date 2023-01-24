@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../products/products';
 import { ProductsService } from '../../products/products.service';
+import { colors } from '../colors';
 
 @Component({
   selector: 'ngx-productinfo',
@@ -13,6 +14,8 @@ export class ProductinfoComponent implements OnInit {
   unAvailableProducts:number=0;
   pieChart:any;
   chart: any;
+  primaryColor:any=colors.primary;
+  accentColor:any=colors.accent;
   private pieChartInstance: any;
   private chartInstance: any;
   constructor(private productService:ProductsService) { }
@@ -21,7 +24,7 @@ export class ProductinfoComponent implements OnInit {
     this.unavailableProductsCount();
     this.getAllProducts();
     this.pieChart = {
-      color: ['#7bcccb', '#9975d4'],
+      color: [this.primaryColor, this.accentColor],
       series: [
           {
               name: 'Pie',
@@ -63,7 +66,7 @@ export class ProductinfoComponent implements OnInit {
         type: 'line',
         name: 'Expiration Date',
         itemStyle: {
-          color: '#9975d4'
+          color: this.accentColor
       }
       }]
     };
