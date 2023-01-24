@@ -10,7 +10,7 @@
                         <div class="container-fluid d-flex flex-column justify-content-around">
                             <p class="my-3 title">Total Products</p>
                             <p class="h2">{{ ProductCount }}</p>
-                            <p class="more">see more</p>
+                            <p [routerLink]='["/pages/products/list"]' class="more">see more</p>
                          </div>
                     </div>
                  </div>
@@ -28,7 +28,7 @@
                         <div class="container-fluid d-flex flex-column justify-content-around">
                             <p class="my-3 title">Total Customers</p>
                             <p class="h2">{{ CustomerCount }}</p>
-                            <p class="more">see more</p>
+                            <p [routerLink]='["/pages/customers/list"]' class="more">see more</p>
                          </div>
                     </div>
                  </div>
@@ -46,7 +46,7 @@
                         <div class="container-fluid d-flex flex-column justify-content-around">
                             <p class="my-3 title">Total Invoices</p>
                             <p class="h2">{{ InvoiceCount }}</p>
-                            <p class="more">see more</p>
+                            <p [routerLink]='["/pages/invoice/list"]' class="more">see more</p>
                          </div>
                     </div>
                  </div>
