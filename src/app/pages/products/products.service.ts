@@ -15,6 +15,15 @@ export class ProductsService {
   getAll():Observable<Product[]>{
     return this.http.get<Product[]>(baseUrl);
   };
+  count():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/count`);
+  };
+  availableProducts():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/available`);
+  };
+  unavailableProducts():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/unavailable`);
+  };
   getById(id:number):Observable<Product>{
     return this.http.get<Product>(`${baseUrl}/${id}`);
   };
