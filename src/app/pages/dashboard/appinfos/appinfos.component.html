@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card stats">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class=" col-3 rounded-circle icon_container mt-2 d-flex justify-content-center align-items-center">
+                        <img class="" src="/assets/icons/product.png" width="70px"/>
+                    </div>
+                    <div class="col-8">
+                        <div class="container-fluid d-flex flex-column justify-content-around">
+                            <p class="my-3 title">Total Products</p>
+                            <p class="h2">{{ ProductCount }}</p>
+                            <p [routerLink]='["/pages/products/list"]' class="more">see more</p>
+                         </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card stats">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class=" rounded-circle col-3 icon_container mt-2 d-flex justify-content-center align-items-center">
+                        <img class="" src="/assets/icons/customer.png" width="70px"/>
+                    </div>
+                    <div class="col-8">
+                        <div class="container-fluid d-flex flex-column justify-content-around">
+                            <p class="my-3 title">Total Customers</p>
+                            <p class="h2">{{ CustomerCount }}</p>
+                            <p [routerLink]='["/pages/customers/list"]' class="more">see more</p>
+                         </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <div class="card stats">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class=" col-3 rounded-circle icon_container mt-2 d-flex justify-content-center align-items-center">
+                        <img class="" src="/assets/icons/invoice.png" width="70px"/>
+                    </div>
+                    <div class="col-8">
+                        <div class="container-fluid d-flex flex-column justify-content-around">
+                            <p class="my-3 title">Total Invoices</p>
+                            <p class="h2">{{ InvoiceCount }}</p>
+                            <p [routerLink]='["/pages/invoice/list"]' class="more">see more</p>
+                         </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.analytics1{
+    min-height: 300px;
+    width: 70%;
+    background-color: #fefefe;
+}
+.analytics2{
+    min-height: 300px;
+    background-color: #fefefe;
+    width: 27%;
+}
+.analytics1,.analytics2:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.title{
+    font-size: small;
+    color: rgb(145, 145, 145);
+}
+.first,.second{
+    height: 20px;
+    width: 20px;
+}
+.first{
+    background-color: #7bcccb;
+}
+.second{
+    background-color: #9975d4;
+}
