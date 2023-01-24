@@ -7,7 +7,7 @@ import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoiceComponent } from './invoice.component';
 import { ListInvoiceComponent } from './list-invoice/list-invoice.component';
 import { AddinvoiceComponent } from './addinvoice/addinvoice.component';
-import { NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbInputModule, NbPopoverModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -23,7 +23,8 @@ import { NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
     NbCardModule,
     NbButtonModule,
     NbInputModule,
-    
-  ]
+    NbPopoverModule,
+    NbDialogModule,
+  ],
 })
 export class InvoiceModule { }

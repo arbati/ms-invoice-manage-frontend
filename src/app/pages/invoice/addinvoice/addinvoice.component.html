@@ -14,13 +14,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputNum" class="label">Num</label>
-                  <input type="number" nbInput fullWidth id="inputNum" placeholder="Num Invoice" readonly>
+                  <input type="number" value="{{invoice?.id}}" nbInput fullWidth id="inputNum" placeholder="Num Invoice" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputDate" class="label">Date</label>
-                  <input type="date" nbInput fullWidth id="inputDate" placeholder="Date Invoice" readonly>
+                  <input type="date" value="{{invoice?.invoiceDate}}" nbInput fullWidth id="inputDate" placeholder="Date Invoice" readonly>
                 </div>
               </div>
             </div>
@@ -28,13 +28,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputDiscount" class="label">Discount</label>
-                  <input type="number" nbInput fullWidth id="inputDiscount" placeholder="Discount" readonly>
+                  <input type="number" value="{{invoice?.discount}}" nbInput fullWidth id="inputDiscount" placeholder="Discount" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputPayement" class="label">Payement</label>
-                  <input type="text" nbInput fullWidth id="inputPayement" placeholder="Payement" readonly>
+                  <input type="text" value="{{invoice?.paymentType}}" nbInput fullWidth id="inputPayement" placeholder="Payement" readonly>
                 </div>
               </div>
             </div>
@@ -52,13 +52,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputFirstName" class="label">FirstName</label>
-                  <input type="text" nbInput fullWidth id="FirstName" placeholder="FirstName" readonly>
+                  <input type="text" value="{{customerSelect.firstName}}" nbInput fullWidth id="FirstName" placeholder="FirstName" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputLastName" class="label">LastName</label>
-                  <input type="text" nbInput fullWidth id="inputLastName" placeholder="LastName" readonly>
+                  <input type="text" value="{{customerSelect.lastName}}" nbInput fullWidth id="inputLastName" placeholder="LastName" readonly>
                 </div>
               </div>
             </div>
@@ -66,13 +66,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputEmail" class="label">Email</label>
-                  <input type="email" nbInput fullWidth id="inputEmail" placeholder="Email" readonly>
+                  <input type="email" value="{{customerSelect.email}}" nbInput fullWidth id="inputEmail" placeholder="Email" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputAddress" class="label">Address</label>
-                  <input type="text" nbInput fullWidth id="inputAddress" placeholder="Address" readonly>
+                  <input type="text" value="{{customerSelect.address}}" nbInput fullWidth id="inputAddress" placeholder="Address" readonly>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputCity" class="label">City</label>
-                  <input type="text" nbInput fullWidth id="inputCity" placeholder="City" readonly>
+                  <input type="text" value="{{customerSelect.city}}" nbInput fullWidth id="inputCity" placeholder="City" readonly>
                 </div>
               </div>
             </div>
@@ -100,20 +100,16 @@
                   <th scope="col">Id</th>
                   <th scope="col">Designation</th>
                   <th scope="col">Price</th>
-                  <th scope="col">Photo</th>
-                  <th scope="col">DepositQuantity</th>
-                  <th scope="col">ExpirationDate</th>
-                  <th scope="col">ShortDescription</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th></th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                <tr *ngFor="let ps of listSelectProducts">
+                  <td>{{ps.id}}</td>
+                  <td>{{ps.designation}}</td>
+                  <td>{{ps.price}}</td>
+                  <td>{{ps.depositQuantity}}</td>
                   <td></td>
                 </tr>
               </tbody>
@@ -125,20 +121,21 @@
   </div>
   
 
-<ng-template #invoiceTemplate let-data>
+<ng-template #invoiceTemplate let-data let-ref="dialogRef">
   <form [formGroup]="invoiceTemplateForm" id="invoiceTemplateForm">
-  <nb-card-body>
+    <nb-card>
+    <nb-card-body>
     <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="id" class="label">Num</label>
-          <input type="number" formControlName="id" nbInput fullWidth id="id" placeholder="Num Invoice">
+          <input type="text" formControlName="id" nbInput fullWidth id="id" placeholder="Num Invoice">
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputDate" class="label">Date</label>
-          <input type="date" formControlName="dateInvoice" nbInput fullWidth id="inputDate" placeholder="Date Invoice">
+          <input type="date" formControlName="invoiceDate" nbInput fullWidth id="inputDate" placeholder="Date Invoice">
         </div>
       </div>
     </div>
@@ -152,7 +149,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputPayement" class="label">Payement</label>
-          <input type="text" nbInput formControlName="payement" fullWidth id="inputPayement" placeholder="Payement">
+          <input type="text" nbInput formControlName="paymentType" fullWidth id="inputPayement" placeholder="Payement">
         </div>
       </div>
     </div>
@@ -160,6 +157,7 @@
       <button type="submit" class="btn btn-success" (click)="onSubmitinvoiceTemplateForm()" nbButton>Add Invoice</button>
     </div>
   </nb-card-body>
+</nb-card>
 </form>
 </ng-template>
 
@@ -179,14 +177,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let c of customer">
+            <td>{{c.id}}</td>
+            <td>{{c.firstName}}</td>
+            <td>{{c.lastName}}</td>
+            <td>{{c.email}}</td>
+            <td>{{c.address}}</td>
+            <td>{{c.city}}</td>
+            <td>
+              <button class="btn btn-info" (click)="selectCustomer(c)">Select</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -201,26 +201,25 @@
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">FirstName</th>
-            <th scope="col">LastName</th>
-            <th scope="col">Email</th>
-            <th scope="col">Address</th>
-            <th scope="col">City</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let p of products">
+            <td>{{p.id}}</td>
+            <td>{{p.designation}}</td>
+            <td>{{p.price}}</td>
+            <td>{{p.depositQuantity}}</td>
+            <td>
+              <input type="checkbox" (click)="selectProduct(p)">
+            </td>
           </tr>
         </tbody>
       </table>
+      <button type="button" class="btn btn-success" (click)="closeProductPopUp()" >Confirme</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
