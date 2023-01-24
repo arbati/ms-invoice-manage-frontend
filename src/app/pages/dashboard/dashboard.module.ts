@@ -16,6 +16,10 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { FormsModule } from '@angular/forms';
+import { AppinfosComponent } from './appinfos/appinfos.component';
+import { CustomerinfoComponent } from './customerinfo/customerinfo.component';
+import { ProductinfoComponent } from './productinfo/productinfo.component';
+import { InvoiceinfoComponent } from './invoiceinfo/invoiceinfo.component';
 
 @NgModule({
   imports: [
@@ -35,6 +39,10 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     DashboardComponent,
+    AppinfosComponent,
+    CustomerinfoComponent,
+    ProductinfoComponent,
+    InvoiceinfoComponent,
   ],
 })
 export class DashboardModule { }

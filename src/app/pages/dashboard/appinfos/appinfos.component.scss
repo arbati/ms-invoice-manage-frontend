@@ -1,0 +1,29 @@
+// card : 
+
+.stats {
+    height:100px;
+    background-color: #fefefe;
+}
+.stats:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.icon_container{
+    height: 80px;
+    background-color: #f0edfc;
+}
+.title{
+    font-size: small;
+    color: rgb(145, 145, 145);
+}
+.more{
+    font-size: 0.72rem;
+    color: rgb(98, 161, 250);
+    position: absolute;
+    bottom: 0;
+    right: 2px;
+}
+.more:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
