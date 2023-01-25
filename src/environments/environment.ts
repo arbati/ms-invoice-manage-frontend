@@ -10,4 +10,5 @@
 
 export const environment = {
   production: false,
+  hostNameMsInvoice:"http://localhost:8011/ms-invoice/v1/invoice"
 };
