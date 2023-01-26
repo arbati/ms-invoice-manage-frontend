@@ -1,6 +1,7 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogRef, NbDialogService, NbToastRef, NbToastrService } from '@nebular/theme';
+import { PaginationInstance } from 'ngx-pagination';
 import { title } from 'process';
 import { Invoice } from '../invoice';
 import { InvoiceService } from '../invoice.service';
@@ -18,13 +19,18 @@ export class ListInvoiceComponent implements OnInit {
   searchStartDate: string = "2022-01-17";
   searchEndDate: string = new Date().toISOString().split('T')[0]
 
-  last!: boolean;
-  first!: boolean;
-  number: number = 0;
+
+  number: number = 1;
   size: number = 10;
-  totalPages!: number;
-  totalElements!: number;
-  pageSizeOptions: Array<number> = [5, 10, 20, 30];
+  totalElements:number=3;
+  pageSizeOptions: Array<number>=[5,10,20,30]
+
+  public config: PaginationInstance = {
+    id: 'pgInvoice',
+    itemsPerPage: this.size,
+    currentPage: this.number,
+    totalItems: this.totalElements
+ };
 
   dialogRef: NbDialogRef<any>;
 
@@ -38,11 +44,11 @@ export class ListInvoiceComponent implements OnInit {
     console.log(this.searchStartDate);
     console.log(this.searchEndDate);
 
-    this.invoiceService.searchInvoice(this.searchStartDate, this.searchEndDate, this.number, this.size).subscribe({
+    this.invoiceService.searchInvoice(this.searchStartDate, this.searchEndDate, this.number-1, this.size).subscribe({
       next: data => {
         this.invoices = data.content;
-        this.number = data.number;
-        this.size = data.size;
+        //this.number = data.number+1;
+        //this.size = data.size;
         this.totalElements = data.totalElements;
         console.log(this.invoices);
       },
@@ -87,31 +93,35 @@ export class ListInvoiceComponent implements OnInit {
 
   searchByNumber(id: any) {
     this.invoices.length = 0;
-    this.invoiceService.getInvoiceById(id).subscribe({
-      next: data => {
-        if (data.id != undefined) {
-          this.invoices.push(data);
+    
+    if(id==undefined || id==""){
+      this.searchInvoice();
+    }else{
+      this.invoiceService.getInvoiceById(id).subscribe({
+        next: data => {
+          if (data.id != undefined) {
+            this.invoices.push(data);
+          }
+  
+          console.log(data);
+  
+        },
+        error: error => {
+          console.error(error);
         }
-
-        console.log(data);
-
-      },
-      error: error => {
-        console.error(error);
-      }
-    });
+      });
+    }
   }
 
   gotoUpdate(id: string) {
 
   }
 
-  pageChangeData(event: any): void {
-
-    //console.log(event);
-    this.size = event.pageSize;
-    this.number = event.pageIndex;
-    this.searchInvoice();
+  pageChangeData(number: number){
+  console.log(number);
+    this.config.currentPage = number;
+    this.number = number;
+   
   }
 
 

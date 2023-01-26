@@ -8,6 +8,7 @@ import { InvoiceComponent } from './invoice.component';
 import { ListInvoiceComponent } from './list-invoice/list-invoice.component';
 import { AddinvoiceComponent } from './addinvoice/addinvoice.component';
 import { NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbInputModule, NbPopoverModule, NbIconModule, NbToastrModule } from '@nebular/theme';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbInputM
     NbPopoverModule,
     NbDialogModule,
     NbIconModule,
+    NgxPaginationModule,
     NbDialogModule.forRoot(),
     NbToastrModule.forRoot()
   ],
