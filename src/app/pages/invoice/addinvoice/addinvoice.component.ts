@@ -6,6 +6,7 @@ import { CustomersService } from '../../customers/customers.service';
 import { Product } from '../../products/products';
 import { ProductsService } from '../../products/products.service';
 import { Invoice } from '../invoice';
+import { InvoiceService } from '../invoice.service';
 
 
 @Component({
@@ -17,88 +18,19 @@ export class AddinvoiceComponent implements OnInit {
   
 
   invoice : Invoice = new Invoice();
-  customer: Customer[]=[
-    {
-      id:1,
-      firstName:"abdelkhalek",
-      lastName:"rbati",
-      email:"abdekhalek@gmail.com",
-      address:"rond point mostakbal",
-      city:"CasaBlanca",
-    },
-    {
-      id:2,
-      firstName:"ali",
-      lastName:"karim",
-      email:"ali@gmail.com",
-      address:"hay rahma",
-      city:"salé",
-    },
-    {
-      id:3,
-      firstName:"yassin",
-      lastName:"chri",
-      email:"yassin@gmail.com",
-      address:"akkari",
-      city:"rabat",
-    },
-    {
-      id:4,
-      firstName:"mustafa",
-      lastName:"mounsif",
-      email:"mustafa@gmail.com",
-      address:"maarif",
-      city:"CasaBlanca",
-    }
-  ]
-  products: Product[]=[
-    {
-    id:1,
-    designation:"HP Probook 5600 I5",
-    price:5200,
-    photo:"",
-    depositQuantity:50,
-    expirationDate:new Date(),
-    shortDescription:"HP",
-    },
-    {
-      id:2,
-      designation:"HP Probook 5600 I5",
-      price:5200,
-      photo:"",
-      depositQuantity:50,
-      expirationDate:new Date(),
-      shortDescription:"HP",
-      },
-      {
-        id:3,
-        designation:"DELL 600 I5",
-        price:5200,
-        photo:"",
-        depositQuantity:50,
-        expirationDate:new Date(),
-        shortDescription:"HP",
-        },
-        {
-          id:4,
-          designation:"HP EliteBook 5600 I5",
-          price:5200,
-          photo:"",
-          depositQuantity:50,
-          expirationDate:new Date(),
-          shortDescription:"HP",
-          },
-  ];  
+  customer: Customer[];
+  products: Product[];
 
   constructor(private fb:FormBuilder,
       private dialogService: NbDialogService,
       private productService: ProductsService,
       private customerService: CustomersService,
+      private invoiceService: InvoiceService
       )
        { }
 
   ngOnInit(): void {
-   
+    this.getAllProducts();
   }
 
 invoiceForm=this.fb.group({
@@ -109,7 +41,7 @@ invoiceTemplateForm=this.fb.group({
   id:[,Validators.required],
   invoiceDate:[new Date(),Validators.required],
   discount:[,Validators.required],
-  paymentType:['',Validators.required]
+  paymentType:['',Validators.required],
 })
 
 onSubmit(){
@@ -136,8 +68,9 @@ onSubmitinvoiceTemplateForm(){
   this.dialogRef.close();
 }
 
+dialogCustomer:any;
 openWindowCustomer(contentTemplate) {
-  this.dialogService.open(
+  this.dialogCustomer = this.dialogService.open(
     contentTemplate,
     {
       context: {
@@ -164,6 +97,7 @@ openWindowProduct(contentTemplate) {
   );
 }
 
+
 closeProductPopUp(){
   this.dialogProduct.close();
 }
@@ -174,11 +108,29 @@ getAllProducts(){
   })
 }
 
+getAllCustomers(){
+  this.customerService.getAll().subscribe(data=>{
+    this.customer = data;
+  })
+}
+
 
 listSelectProducts:Product[] = [];
 selectProduct(p){
   this.listSelectProducts.push(p);
   console.log(this.listSelectProducts);
+}
+
+closeCustomersPopUp(){
+  this.dialogCustomer.close();
+}
+
+onValidCustomer(){
+  this.invoice.customer = this.customerSelect
+  this.invoice.products = this.products
+  this.invoiceService.addInvoice(this.invoice).subscribe(data=>{
+    console.log(data);
+  })
 }
 
 }
