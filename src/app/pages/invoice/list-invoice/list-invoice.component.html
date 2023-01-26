@@ -3,7 +3,7 @@
     <div class="row align-items-center bg-white pt-3 pb-3">
 
       <div class="col-3">
-        <input type="text" class="form-control" placeholder="Invoice num" #box (keyup.enter)="searchByNumber(box.value)" >
+        <input type="text" class="form-control" placeholder="Type invoice N° & press enter" #box (keyup.enter)="searchByNumber(box.value)" >
       </div>
       <div class="col-7">
           <div class="form-row">
@@ -24,7 +24,7 @@
 
 <div class="row bg-white" style="margin-top: 10px;">
 <div class="col-12">
-          <table class="table" *ngIf="invoices">
+          <table class="table" *ngIf="invoices | paginate: config">
                 <thead>
                 <tr>
                 <th scope="col">ID</th>
@@ -58,21 +58,24 @@
                 </tr>
                 </tbody>
           </table>
+
+          <pagination-controls [id]="config.id" (pageChange)="pageChangeData($event)"></pagination-controls>
            
           <ng-template #dialog let-data let-ref="dialogRef">
             <nb-card>
-              <nb-card-header>delete confirmation!</nb-card-header>
+              <nb-card-header class="bg-info" style="color: #ffffff;">Delete confirmation!</nb-card-header>
               <nb-card-body>
-                Are you sure to delete this invoice number: {{ data }} ?
+                Are you sure to delete this invoice N°: {{ data }} ?
               </nb-card-body>
               <nb-card-footer>
                 <div class="row">
-                  <div class="col-6">
-                    <button class="btn btn-secondary"  (click)="ref.close()">No</button> 
+                  <div class="col-6"> </div>
+                  <div class="col-3">
+                    <button class="btn btn-danger"  (click)="confirmDelete(data,dialog)">Yes</button>
                   </div>
-                  <div class="col-6">
-                  <button class="btn btn-primary"  (click)="confirmDelete(data,dialog)">Yes</button>
-                </div>
+                  <div class="col-3">
+                    <button class="btn btn-success"  (click)="ref.close()">No</button>
+                  </div>
                 </div>
               </nb-card-footer>
             </nb-card>
