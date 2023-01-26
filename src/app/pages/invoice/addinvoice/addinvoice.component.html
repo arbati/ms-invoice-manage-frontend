@@ -116,6 +116,9 @@
             </table>
           </nb-card-body>
         </nb-card>
+        <div class="d-grid d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-success" (click)="onValidCustomer()">Valider</button>
+        </div>
       </form>
     </div>
   </div>
@@ -125,7 +128,11 @@
   <form [formGroup]="invoiceTemplateForm" id="invoiceTemplateForm">
     <nb-card>
     <nb-card-body>
-    <div class="row">
+      <div class="mb-3">
+        <h6 class="card-title">Ajouter Invoice</h6>
+      </div>
+      <hr>
+      <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="id" class="label">Num</label>
@@ -164,7 +171,10 @@
 <ng-template #customerTemplate let-data>
   <nb-card>
     <nb-card-body>
-      <table class="table table-striped">
+      <div class="mb-3">
+        <h6 class="card-title">Ajouter Customer</h6>
+      </div>
+      <table class="table table-striped mb-2">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -190,6 +200,7 @@
           </tr>
         </tbody>
       </table>
+      <button type="button" class="btn btn-success btn-sm mb-4" (click)="closeCustomersPopUp()" >Confirme</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
@@ -197,6 +208,9 @@
 <ng-template #productTemplate let-data>
   <nb-card>
     <nb-card-body>
+      <div class="mb-3">
+        <h6 class="card-title">Ajouter Les Produits</h6>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -214,12 +228,12 @@
             <td>{{p.price}}</td>
             <td>{{p.depositQuantity}}</td>
             <td>
-              <input type="checkbox" (click)="selectProduct(p)">
+              <button type="button" class="btn btn-info" (click)="selectProduct(p)" >Select</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-success" (click)="closeProductPopUp()" >Confirme</button>
+      <button type="button" class="btn btn-success btn-sm" (click)="closeProductPopUp()" >Confirme</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
