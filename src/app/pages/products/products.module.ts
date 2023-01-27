@@ -8,6 +8,7 @@ import { ProductsComponent } from './products.component';
 import { ListproductsComponent } from './listproducts/listproducts.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { EditproductComponent } from './editproduct/editproduct.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EditproductComponent } from './editproduct/editproduct.component';
     ProductsRoutingModule,
     NbIconModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     ]
 })
 export class ProductsModule { }

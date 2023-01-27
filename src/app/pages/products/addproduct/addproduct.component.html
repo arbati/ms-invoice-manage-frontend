@@ -1,51 +1,57 @@
 <div class="mt-4 card">
     <div class="card-body">
       <div class="card-title fs-6 text-muted">Add a product</div>
-      <form #productForm="ngForm" (ngSubmit)="addProduct()" class="mt-4 py-2" >
+      <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="mt-4 py-2" >
         <div class="form-group row">
           <label for="inputId" class="col-sm-2 col-form-label">Id</label>
           <div class="col-sm-10">
-            <input [(ngModel)]="id" name="id" type="text" class="form-control" id="inputId" placeholder="Product id" required>
+            <input formControlName="id" name="id" type="text" class="form-control" id="inputId" placeholder="Product id" required>
           </div>
         </div>
         <div class="form-group row">
             <label for="inputDesignation" class="col-sm-2 col-form-label">Designation</label>
             <div class="col-sm-10">
-              <input [(ngModel)]="designation" name="designation" type="text" class="form-control" id="inputDesignation" placeholder="Product designation">
+              <input formControlName="designation" name="designation" type="text" class="form-control" id="inputDesignation" placeholder="Product designation" required>
             </div>
         </div>
         <div class="form-group row">
           <label for="inputphoto" class="col-sm-2 col-form-label">imageUrl</label>
           <div class="col-sm-10">
-            <input [(ngModel)]="photo" name="photo" type="text" class="form-control" id="inputphoto" placeholder="Product Image">
+            <input formControlName="photo" name="photo" type="text" class="form-control" id="inputphoto" placeholder="Product Image" required>
+            <div class="col-sm-10" *ngIf="productForm.get('photo').hasError('invalidImageUrl') && productForm.get('photo').touched">
+              <div class="text-danger">Invalid Image URL</div>
+            </div>
           </div>
       </div>
         <div class="form-group row">
             <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>
             <div class="col-sm-10">
-              <input [(ngModel)]="price" name="price" type="number" class="form-control" id="inputPrice" placeholder="Product price">
+              <input formControlName="price" name="price" type="number" class="form-control" id="inputPrice" placeholder="Product price" required>
+              <div class="col-sm-10" *ngIf="productForm.controls['price'].value < 0">
+                <p class="text-danger">Price cannot be negative</p>
+              </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputdepositQuantity" class="col-sm-2 col-form-label">depositQuantity</label>
             <div class="col-sm-10">
-              <input [(ngModel)]="depositQuantity" name="depositQuantity" type="number" class="form-control" id="inputdepositQuantity" placeholder="Product depositQuantity">
+              <input formControlName="depositQuantity" name="depositQuantity" type="number" class="form-control" id="inputdepositQuantity" placeholder="Product depositQuantity" required>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputdepositQuantity" class="col-sm-2 col-form-label">expirationDate</label>
             <div class="col-sm-10">
-              <input [(ngModel)]="expirationDate" name="expirationDate" type="date" class="form-control"  id="inputdepositQuantity" placeholder="Product depositQuantity">
+              <input formControlName="expirationDate" name="expirationDate" type="date" class="form-control"  id="inputdepositQuantity" placeholder="Product depositQuantity" required>
             </div>
         </div>
         <div class="mt-4 form-group row">
           <label for="inputDescription" class="col-sm-2 col-form-label">Short Description</label>
           <div class="col-sm-10">
-            <textarea [(ngModel)]="shortDescription" name="shortDescription" type="text" class="form-control" id="inputDescription" placeholder="Product Description"></textarea>
+            <textarea formControlName="shortDescription" name="shortDescription" type="text" class="form-control" id="inputDescription" placeholder="Product Description" ></textarea>
           </div>
         </div>
         <div class="mt-4 w-full d-flex justify-content-end align-items-center">
-          <button type="submit" class="btn btn-primary"> Add product </button>
+          <button [disabled]="productForm.invalid" type="submit" class="btn btn-primary"> Add product </button>
         </div>
       </form>
     </div>

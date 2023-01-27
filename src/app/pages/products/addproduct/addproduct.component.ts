@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup , Validators } from '@angular/forms';
 import { Product } from '../products';
 import { ProductsService } from '../products.service';
+import { FormBuilder } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 @Component({
   selector: 'ngx-addproduct',
   templateUrl: './addproduct.component.html',
@@ -9,40 +11,56 @@ import { ProductsService } from '../products.service';
 })
 export class AddproductComponent implements OnInit {
 
-  id:number=null;
-  designation:string="";
-  shortDescription:string="";
-  depositQuantity:number=null;
-  expirationDate:Date=new Date("225-12-31");
-  price:number=null;
-  photo:string="";
-  @ViewChild('productForm') productForm: NgForm;
 
-  constructor(private productService: ProductsService) { }
+  productForm: FormGroup;
 
+  constructor(private productService: ProductsService,private fb: FormBuilder,private nbToastr:NbToastrService) { }
+
+  validateImageUrl(control: FormControl) {
+    if (!control.value) {
+      return null;
+    }
+    if (!control.value.endsWith('.jpg') && !control.value.endsWith('.jpeg') && !control.value.endsWith('.png') && !control.value.endsWith('.gif')) {
+      return { invalidImageUrl: true };
+    }
+    return null;
+  }
 
   ngOnInit(): void {
+    this.productForm = this.fb.group({
+      id: ['', Validators.required],
+      designation: ['',Validators.required],
+      photo: ['',Validators.compose([Validators.required, this.validateImageUrl])],
+      price: [''],
+      depositQuantity: [''],
+      expirationDate: [''],
+      shortDescription: [''],
+   });
   }
 
   addProduct():void{
-    let newProduct:Product = {
-      id: this.id,
-      designation: this.designation,
-      shortDescription: this.shortDescription,
-      depositQuantity: this.depositQuantity,
-      expirationDate: this.expirationDate,
-      price: this.price,
-      photo: this.photo
-    }
+    let newProduct: Product = {
+      id: this.productForm.get('id').value,
+      designation: this.productForm.get('designation').value,
+      shortDescription: this.productForm.get('shortDescription').value,
+      depositQuantity: this.productForm.get('depositQuantity').value,
+      expirationDate: this.productForm.get('expirationDate').value,
+      price: this.productForm.get('price').value,
+      photo: this.productForm.get('photo').value
+    };
     this.productService.add(newProduct)
     .subscribe(
       res=>{
-        console.log("Product added successfully", res);
+        this.nbToastr.success(`The product : " ${newProduct.designation} " has been added successfully !`)
         this.productForm.reset();
      },
      err=>{
-       console.log("Error adding product", err);
-     }
+      if(err.status === 400) {
+        this.nbToastr.danger(`a Product already exists with the id : ${newProduct.id} !`)
+      } else {
+        this.nbToastr.danger("There is an Error while adding the product !")
+      }
+    }
     )
   }
 
