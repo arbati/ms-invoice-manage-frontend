@@ -48,10 +48,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Invoice List',
+        icon:'list-outline',
         link: '/pages/invoice/list',
       },
       {
         title: 'Add Invoice',
+        icon:'plus-outline',
         link: '/pages/invoice/add',
       }
     ]
