@@ -1,5 +1,7 @@
 <div class="card analytics">
     <div class="card-body">
-        invoice chart
+            <p class="title text-muted mt-2 ml-2">Profit progress: 2022</p>
+            <div class="h-100" echarts [options]="chart" (chartInit)="onChartInit($event)"></div>
+      
     </div>
 </div>

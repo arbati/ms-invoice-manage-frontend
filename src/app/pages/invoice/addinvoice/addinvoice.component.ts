@@ -18,7 +18,7 @@ export class AddinvoiceComponent implements OnInit {
   
 
   invoice : Invoice = new Invoice();
-  customer: Customer[];
+  customers: Customer[];
   products: Product[];
 
   constructor(private fb:FormBuilder,
@@ -31,6 +31,7 @@ export class AddinvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.getAllCustomers();
   }
 
 invoiceForm=this.fb.group({
@@ -110,13 +111,13 @@ getAllProducts(){
 
 getAllCustomers(){
   this.customerService.getAll().subscribe(data=>{
-    this.customer = data;
+    this.customers = data;
   })
 }
 
 
 listSelectProducts:Product[] = [];
-selectProduct(p){
+selectProduct(p:any){
   this.listSelectProducts.push(p);
   console.log(this.listSelectProducts);
 }
