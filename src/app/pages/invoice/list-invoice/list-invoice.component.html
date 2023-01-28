@@ -16,7 +16,7 @@
       </div>
 
       <div class="col-2">
-          <button type="button" class="form-control btn-primary col-10 ml-2"> + New invoice</button>
+          <button type="button" class="form-control btn-primary col-10 ml-2" routerLink="/pages/invoice/add" routerLinkActive="router-link-active" > + New invoice</button>
       </div>
 
     </div>
@@ -33,7 +33,8 @@
                 <th scope="col">Discount</th>
                 <th scope="col">Customer</th>
                 <th scope="col">Products count</th>
-                <th>More</th>
+                <th>Download</th>
+                <th>Detail</th>
                 <th>Delete</th>
                 </tr>
                 </thead>
@@ -45,16 +46,9 @@
                 <td>{{item.discount}}</td>
                 <td>{{item.customer.firstName}}</td>
                 <td>{{item.products.length}}</td>
-                <td><button class="btn btn-outline-success" (click)="gotoUpdate(item.id)"><nb-icon icon="settings-outline"></nb-icon></button></td>
-                <td>
-                     
-                 <button class="btn btn-outline-danger" (click)="open(dialog,item.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
-  
-                <ng-template #permissionDeny>
-                  <span class="text-red"> Permission deny</span>
-                </ng-template>
-    
-                </td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="download-outline" class="action text-secondary" routerLink="/pages/invoice/download/{{item.id}}"></nb-icon></div></td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" routerLink="/pages/invoice/setting/{{item.id}}"></nb-icon></div></td>
+                <td><div class="d-flex justify-content-around align-items-center"><nb-icon icon="trash-2-outline" class="action text-danger" (click)="open(dialog,item.id)"></nb-icon></div></td>
                 </tr>
                 </tbody>
           </table>

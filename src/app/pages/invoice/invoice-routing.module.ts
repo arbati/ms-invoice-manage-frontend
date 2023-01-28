@@ -20,6 +20,14 @@ const routes: Routes = [{
     {
       path: ':id',
       component: DownloadinvoiceComponent,
+    },
+    {
+      path:"setting/:id",
+      component: AddinvoiceComponent
+    },
+    {
+      path:"download/:id",
+      component: DownloadinvoiceComponent
     }
   ]
   }]

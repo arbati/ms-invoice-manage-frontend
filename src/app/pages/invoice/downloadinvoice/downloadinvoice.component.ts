@@ -11,12 +11,14 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./downloadinvoice.component.scss']
 })
 export class DownloadinvoiceComponent implements OnInit {
+  
   id:string;
   invoice:Invoice;
   subTotal:number=0;
   discount:number=20;
   reducedPrice:number=0;
   totalPrice:number=0;
+
   constructor(private invoiceService:InvoiceService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
