@@ -1,77 +1,77 @@
 <div class="container">
-    <div class="ms-2 mb-2 d-flex align-items-center">
-      <div class="mr-2">Total Customers</div>
-      <div class="text-muted">(<span class="mx-1">{{ count }}</span>)</div>
+  <div class="ms-2 mb-2 d-flex align-items-center">
+    <div class="mr-2">Total Customers</div>
+    <div class="text-muted">(<span class="mx-1">{{ count }}</span>)</div>
+  </div>
+  
+  <div class="my-4">
+    <div class="ms-2 mb-2 d-flex align-items-center justify-content-between">
+      <div class="form-outline w-full">
+        <input nbInput (keyup)="search($event)"  [disabled]="responseCode === 404 || responseCode === 500 || isLoading" type="search" id="form1" class="form-control" placeholder="Search by name" aria-label="Search" />
+      </div>
+      <button [routerLink]="['/pages/customers/add']" class="btn btn-primary"><nb-icon icon="plus-outline"></nb-icon>New Customer</button>
     </div>
-    
-    <div class="my-4">
-      <div class="ms-2 mb-2 d-flex align-items-center justify-content-between">
-        <div class="form-outline w-full">
-          <input [(ngModel)]="nameSearch" (keyup)="getByName()"  [disabled]="responseCode === 404 || responseCode === 500 || isLoading" type="search" id="form1" class="form-control" placeholder="Search by name" aria-label="Search" />
-        </div>
-        <button [routerLink]="['/pages/customers/add']" class="btn btn-primary"><nb-icon icon="plus-outline"></nb-icon>New Customer</button>
-      </div>
-      <!-- Not Found -->
-      <div *ngIf="responseCode === 404" class="d-flex justify-content-center align-items-center">
-        <img class="mt-4" style="height:400px;width:400px" src="/assets/errors/404.png" alt="not found illustration">
-      </div>
-      <!-- SInternal Server Error -->
-      <div *ngIf="responseCode === 500" class="d-flex">
-        <img class="mt-4" style="height:400px;width:400px" src="/assets/errors/404.png" alt="internal server illustration">
-      </div>
-       <!-- Data is Loaded -->
-      <div *ngIf="!isLoading && showData">
-        <div *ngIf="count > 0;else emptyData ">
-            <table class="table align-middle mt-5 mb-0 bg-white">
-              <thead class="bg-light">
-                <tr>
-                  <th>Id</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>City</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let customer of customers | paginate: { itemsPerPage: 4, currentPage: p } ">
+    <!-- Not Found -->
+    <div *ngIf="responseCode === 404" class="d-flex justify-content-center align-items-center">
+      <img class="mt-4" style="height:400px;width:400px" src="/assets/errors/404.png" alt="not found illustration">
+    </div>
+    <!-- SInternal Server Error -->
+    <div *ngIf="responseCode === 500" class="d-flex">
+      <img class="mt-4" style="height:400px;width:400px" src="/assets/errors/404.png" alt="internal server illustration">
+    </div>
+     <!-- Data is Loaded -->
+    <div *ngIf="!isLoading && showData">
+      <div *ngIf="count > 0;else emptyData ">
+          <table class="table align-middle mt-5 mb-0 bg-white">
+            <thead class="bg-light">
+              <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let customer of customers | paginate: { itemsPerPage: 4, currentPage: p } ">
 
-                  <td>
-                    <p class="">{{ customer.id }}</p>
-                  </td>
-                  <td>
-                    <p class="">{{ customer.firstName }}</p>
-                  </td>
-                  <td>
-                    <p class="">{{ customer.lastName }}</p>
-                  </td>
-                  <td>
-                    <p class="">{{ customer.email }}</p>
-                  </td>
-                  <td>
-                    <p class="">{{ customer.address}}</p>
-                  </td>
-                  <td>
-                    <p class="">{{ customer.city }}</p>
-                  </td>
-                  <td class="d-flex justify-content-around align-items-center">
-                      <nb-icon [routerLink]="['/pages/customers/edit' ,customer.id]" class="action text-primary" icon="edit-outline"></nb-icon>
-                      <nb-icon (click)="deleteCustomer(customer.id)" class="action text-danger" icon="trash-2-outline"></nb-icon>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex mt-4 justify-content-center align-items-center">
-              <pagination-controls responsive="true" (pageChange)="p = $event"></pagination-controls>
-            </div>
+                <td>
+                  <p class="">{{ customer.id }}</p>
+                </td>
+                <td>
+                  <p class="">{{ customer.firstName }}</p>
+                </td>
+                <td>
+                  <p class="">{{ customer.lastName }}</p>
+                </td>
+                <td>
+                  <p class="">{{ customer.email }}</p>
+                </td>
+                <td>
+                  <p class="">{{ customer.address}}</p>
+                </td>
+                <td>
+                  <p class="">{{ customer.city }}</p>
+                </td>
+                <td class="d-flex justify-content-around align-items-center">
+                    <nb-icon [routerLink]="['/pages/customers/edit' ,customer.id]" class="action text-primary" icon="edit-outline"></nb-icon>
+                    <nb-icon (click)="deleteCustomer(customer.id)" class="action text-danger" icon="trash-2-outline"></nb-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex mt-4 justify-content-center align-items-center">
+            <pagination-controls responsive="true" (pageChange)="p = $event"></pagination-controls>
           </div>
-           <!-- Empty Products -->
-            <ng-template #emptyData>
-              <div class="mt-5 d-flex justify-content-center align-items-center">
-                  No Available Customer
-              </div>
-            </ng-template>
-      </div>
+        </div>
+         <!-- Empty Products -->
+          <ng-template #emptyData>
+            <div class="mt-5 d-flex justify-content-center align-items-center">
+                No Available Customer
+            </div>
+          </ng-template>
     </div>
   </div>
+</div>
