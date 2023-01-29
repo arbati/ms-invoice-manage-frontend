@@ -1,47 +1,46 @@
 <div class="mt-4 card">
-    <div class="card-body">
-      <div class="card-title fs-6 text-muted">Edit Customer</div>
-      <form #productForm="ngForm" (ngSubmit)="editCustomer()" class="mt-4 py-2" >
-        <div class="form-group row">
-          <label for="inputId" class="col-sm-2 col-form-label">Id</label>
+  <div class="card-body">
+    <div class="card-title fs-6 text-muted">Edit Customer</div>
+    <form #productForm="ngForm" (ngSubmit)="editCustomer()" class="mt-4 py-2" >
+      <div class="form-group row">
+        <label for="inputId" class="col-sm-2 col-form-label">Id</label>
+        <div class="col-sm-10">
+          <input disabled="true" [(ngModel)]="id" name="id" type="text" class="form-control" id="inputId" placeholder="Customer id" required>
+        </div>
+      </div>
+      <div class="form-group row">
+          <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
           <div class="col-sm-10">
-            <input disabled="true" [(ngModel)]="id" name="id" type="text" class="form-control" id="inputId" placeholder="Customer id" required>
+            <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="Customer first name">
           </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" id="inputEmail" placeholder="Customer last name">
         </div>
-        <div class="form-group row">
-            <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
-            <div class="col-sm-10">
-              <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" id="inputFirstName" placeholder="Customer first name">
-            </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="email" name="email" type="text" class="form-control" id="inputEmail" placeholder="Customer email">
         </div>
-        <div class="form-group row">
-          <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
-          <div class="col-sm-10">
-            <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" id="inputEmail" placeholder="Customer last name">
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="address" name="address" type="text" class="form-control" id="inputAddress" placeholder="Customer address">
         </div>
-        <div class="form-group row">
-          <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input [(ngModel)]="email" name="email" type="text" class="form-control" id="inputEmail" placeholder="Customer email">
-          </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+        <div class="col-sm-10">
+          <input [(ngModel)]="city" name="city" type="text" class="form-control" id="inputCity" placeholder="Customer city">
         </div>
-        <div class="form-group row">
-          <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
-          <div class="col-sm-10">
-            <input [(ngModel)]="address" name="address" type="text" class="form-control" id="inputAddress" placeholder="Customer address">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputCity" class="col-sm-2 col-form-label">City</label>
-          <div class="col-sm-10">
-            <input [(ngModel)]="city" name="city" type="text" class="form-control" id="inputCity" placeholder="Customer city">
-          </div>
-        </div>
-        <div class="mt-4 w-full d-flex justify-content-end align-items-center">
-          <button type="submit" class="btn btn-primary"> Edit customer </button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="mt-4 w-full d-flex justify-content-end align-items-center">
+        <button type="submit" class="btn btn-primary"> Edit customer </button>
+      </div>
+    </form>
   </div>
-  
+</div>
