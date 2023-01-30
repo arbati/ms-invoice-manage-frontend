@@ -57,4 +57,18 @@ export class ListCustomersComponent implements OnInit {
       this.customers = this.customersAll;
     }
   }
+
+  // search(){
+  //   if(!this.nameSearch){
+  //     this.getCustomers();
+  //   } 
+  //   this.customerService.search(this.nameSearch)
+  //   .subscribe((res: any)=>{
+  //     this.customers=res;
+  //     this.count=this.customers.length;
+  //   },(err: { error: any; })=>{
+  //     this.count=0;
+  //     console.log(err.error)
+  //   })
+  // };
 }

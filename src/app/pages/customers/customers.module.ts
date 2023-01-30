@@ -6,7 +6,7 @@ import { CustomersComponent } from './customers.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbIconModule } from '@nebular/theme';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -24,6 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     NbIconModule,
     NgxPaginationModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class CustomersModule { }

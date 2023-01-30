@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Customer } from '../customers';
 import { CustomersService } from '../customers.service';
 
@@ -19,7 +20,7 @@ export class EditCustomerComponent implements OnInit {
   city:string="";
   @ViewChild('customerForm') customerForm: NgForm;
 
-  constructor(private customerService: CustomersService , private route: ActivatedRoute,private router:Router) { }
+  constructor(private customerService: CustomersService , private route: ActivatedRoute,private router:Router, private nbToastr:NbToastrService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -37,7 +38,7 @@ export class EditCustomerComponent implements OnInit {
     })
   }
   editCustomer(){
-    let updatedCustomer:Customer = {
+    let updatedCustomer: Customer = {
       id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
@@ -47,15 +48,14 @@ export class EditCustomerComponent implements OnInit {
     }
     this.customerService.update(this.id,updatedCustomer).subscribe(
       res => {
-        console.log("Updated");
+        //console.log("Updated");
+        this.nbToastr.success(`The customer : " ${updatedCustomer.firstName} " has been update successfully !`)
         this.router.navigate(['/pages/customers/list']);
       },
       error => {
-        console.log(error)
+        //console.log(error)
+        this.nbToastr.danger("There is an Error while update the customer !")
       }
     )
   }
-
-
-
 }

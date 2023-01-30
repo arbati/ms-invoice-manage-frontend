@@ -26,7 +26,16 @@ export class CustomersService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${baseUrl}/id/${id}`);
   }
-  getByFirstName(firstName:string):Observable<Customer[]>{
+  search(firstName:string):Observable<Customer[]>{
     return this.http.get<Customer[]>(`${baseUrl}/name/${firstName}`);
+  };
+  availableCustomers():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/available`);
+  };
+  unavailableCustomers():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/unavailable`);
+  };
+  count():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/count`);
   };
 }
