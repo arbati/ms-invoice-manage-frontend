@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { colors } from '../colors';
+import { InvoiceService } from '../../Invoice/invoice.service';
+import { InvoiceMonthTotal } from '../../invoice/invoice';
 
 @Component({
   selector: 'ngx-invoiceinfo',
@@ -9,22 +11,31 @@ import { colors } from '../colors';
 export class InvoiceinfoComponent implements OnInit {
 
   chart: any;
-  xAxisData:Array<string>;
-  yAxisData:Array<number>;
+  xAxisData:Array<string>=[];
+  yAxisData:Array<number>=[];
   primaryColor:any=colors.primary;
   accentColor:any=colors.accent;
   private chartInstance: any;
+  map = new Map<number, number>();
+  arrayMonthTotal:any;
+  monthOfYear:Array<string>=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-  constructor() { }
-
+  constructor(private invoiceService:InvoiceService ) { }
 
   ngOnInit(): void {
-   
-    this.xAxisData=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    this.yAxisData=[1541,21541,4574,6325,2154,1215,9856,45874,1452,30251,1547,14854];
+    
+    this.invoiceService.getInvoicesByTotal().subscribe(map => {
+      for (const key in map) {
+        if (map.hasOwnProperty(key)) {
+          this.xAxisData.push(this.monthOfYear[parseInt(key)-1]);
+          this.yAxisData.push(map[key]);
+        }}
 
-    this.chartCobfig();
+        this.chartCobfig();
+    });
+
+    
   }
 
 
@@ -65,13 +76,6 @@ export class InvoiceinfoComponent implements OnInit {
 
    onChartInit(ec:any) {
     this.chartInstance = ec;
-    }
-
-
-    updateChart(){
-      this.chart.xAxis.data=["2020","2021","2022","2023"];
-      this.chart.series[0].data=[1541,21541,4574,6325];
-      this.chartInstance.setOption(this.chart);
     }
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Invoice } from './invoice';
+import { Invoice, InvoiceTotal } from './invoice';
 import { environment } from '../../../environments/environment';
 import { InvoicePage } from './invoicePage.model';
 
@@ -44,5 +44,11 @@ export class InvoiceService {
 
   }
 
+
+  getInvoicesByTotal():Observable<Map<number,number>>{
+
+    return this.http.get<Map<number,number>>(environment.hostNameMsInvoice+"/invoiceMonthTotal");
+    
+  }
 
 }

@@ -41,16 +41,12 @@ export class ListInvoiceComponent implements OnInit {
 
   searchInvoice() {
 
-    console.log(this.searchStartDate);
-    console.log(this.searchEndDate);
-
     this.invoiceService.searchInvoice(this.searchStartDate, this.searchEndDate, this.number-1, this.size).subscribe({
       next: data => {
         this.invoices = data.content;
         //this.number = data.number+1;
         //this.size = data.size;
         this.totalElements = data.totalElements;
-        console.log(this.invoices);
       },
       error: error => {
         console.error(error);
@@ -61,7 +57,6 @@ export class ListInvoiceComponent implements OnInit {
 
 
   confirmDelete(id: string, dialog: TemplateRef<any>) {
-    console.log(id);
     this.invoiceService.deleteInvoice(id).subscribe({
       next: data => {
         this.searchInvoice();
@@ -103,8 +98,6 @@ export class ListInvoiceComponent implements OnInit {
             this.invoices.push(data);
           }
   
-          console.log(data);
-  
         },
         error: error => {
           console.error(error);
@@ -118,7 +111,6 @@ export class ListInvoiceComponent implements OnInit {
   }
 
   pageChangeData(number: number){
-  console.log(number);
     this.config.currentPage = number;
     this.number = number;
    

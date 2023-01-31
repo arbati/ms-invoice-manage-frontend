@@ -13,8 +13,10 @@ import html2canvas from 'html2canvas';
 export class DownloadinvoiceComponent implements OnInit {
   
   id:string;
-  invoice:Invoice;
-  subTotal:number=0;
+  invoice:Invoice=new Invoice();
+  totalHt:number=0;
+  totalTtc:number=0;
+  totalTva:number=0;
   discount:number=20;
   reducedPrice:number=0;
   totalPrice:number=0;
@@ -29,9 +31,12 @@ export class DownloadinvoiceComponent implements OnInit {
     this.invoiceService.getInvoiceById(id)
     .subscribe(res=>{
       this.invoice=res;
-      this.subTotal = this.invoice.products.reduce((acc, product) => acc + product.price, 0);
-      this.reducedPrice = (this.subTotal * this.discount) / 100;
-      this.totalPrice = this.subTotal - this.reducedPrice ;
+      console.log(this.invoice);
+      this.totalHt = this.invoice.products.reduce((acc, product) => acc + (product.price*product.depositQuantity), 0);      
+      this.reducedPrice = (this.totalHt * this.discount) / 100;
+      this.totalPrice = this.totalHt - this.reducedPrice ;
+      this.totalTva= this.totalHt*(1/5);
+      this.totalTtc= this.totalHt+this.totalTva;
     })
   }
 

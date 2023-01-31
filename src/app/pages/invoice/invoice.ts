@@ -1,5 +1,5 @@
 import { Customer } from "../customers/customers"
-import { Product } from "../products/products"
+import { Product } from "../products/products";
 
 export class Invoice {
 
@@ -9,4 +9,16 @@ export class Invoice {
     "invoiceDate":Date;
     "paymentType":string;
     "discount": number;
+}
+
+
+export class InvoiceTotal{
+    "id": string;
+    "invoiceDate":Date;
+    "subtotal": number;
+}
+
+export class InvoiceMonthTotal{
+    "month": number;
+    "total":number;
 }
