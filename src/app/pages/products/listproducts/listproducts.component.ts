@@ -1,6 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { Product } from '../products';
 import { ProductsService } from '../products.service';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-listproducts',
@@ -17,7 +18,7 @@ export class ListproductsComponent implements OnInit {
   p:number = 1;
   designationSearch: string;
 
-  constructor(private productService:ProductsService) { }
+  constructor(private productService:ProductsService,private nbToastr:NbToastrService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -54,6 +55,7 @@ export class ListproductsComponent implements OnInit {
     if (confirm('Are you sure you want to delete this product?')){
       this.productService.delete(id)
       .subscribe(res=>{
+        this.nbToastr.success(`The product has been deleted successfully !`)
         this.getProducts();
         console.log(res)
       })

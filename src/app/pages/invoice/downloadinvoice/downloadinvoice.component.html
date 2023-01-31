@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-end">
+    <button (click)="convertToPDF()" class="btn btn-secondary"><nb-icon icon="download-outline"></nb-icon>Download</button>
+</div>
+<div id="DataToPdf" class="card px-5 py-5 mt-3">
+        <div class="py-2 px-3 d-flex justify-content-between">
+            <!-- Billed By -->
+            <div class="d-flex flex-column w-25">
+                <div class="font-weight-bold py-2">Billed by :</div>
+                <div class="text-muted">Examen SOAP</div>
+                <div class="mt-1 text-muted">18000 ENSA Kenitra</div>
+                <div class="mt-1 text-muted">Morocco</div>
+            </div>
+            <div class="h6 mr-3">INVOICE N° {{invoice.id}}</div>
+        </div>
+        <div class="py-3 px-3 mt-4 d-flex justify-content-between">
+            <!-- Billing Details -->
+            <div class="d-flex flex-column w-25">
+                <div class="font-weight-bold py-2">Billed in :</div>
+                <div class="text-muted">Ville Haute , Bureau 2, 1er étage</div>
+                <div class="mt-1 text-muted">18000 Kenitra</div>
+                <div class="mt-1 text-muted">Morocco</div>
+            </div>
+            <!-- Customer Details -->
+            <div class="d-flex flex-column w-25">
+                <div class="font-weight-bold py-2">Customer Details</div>
+                <div class="text-muted">{{ invoice.customer?.firstName }} {{ invoice.customer?.lastName }}</div>
+                <div class="mt-1 text-muted">{{ invoice.customer?.email }}</div>
+                <div class="mt-1 text-muted">{{ invoice.customer?.address }}</div>
+                <div class="mt-1 text-muted">{{ invoice.customer?.city }}</div>
+            </div>
+            <!-- Invoice Details -->
+            <div class="d-flex flex-column w-25">
+                <div class="d-flex py-1">
+                    <div class="font-weight-bold">Invoice n° :</div>
+                    <div class="px-2 text-muted">{{ invoice.id }}</div>
+                </div>
+                <div class="d-flex py-1">
+                    <div class="font-weight-bold">Payment type :</div>
+                    <div class="px-2 text-muted">{{ invoice.paymentType }}</div>
+                </div>
+                <div class="d-flex py-1">
+                    <div class="font-weight-bold">Discount :</div>
+                    <div class="px-2 text-muted">{{ discount }}<span>%</span></div>
+                </div>
+                <div class="d-flex py-1">
+                    <div class="font-weight-bold">Date :</div>
+                    <div class="px-2 text-muted">{{ invoice.invoiceDate }}</div>
+                </div>
+            </div>
+        </div>
+        <!-- Products Details -->
+        <table class="table custom-table py-4 mt-5">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal (MAD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of invoice.products">
+                    <td>
+                       {{ p.id }}
+                    </td>
+                    <td>{{ p.designation }}</td>
+                    <td>{{ p.price }}<span class="ml-1">MAD</span></td>
+                    <td>{{ p.depositQuantity }}</td>
+                    <td>{{ p.price * p.depositQuantity }}<span class="ml-1"></span></td>
+                </tr>
+                <tr class="" >
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <p>
+                            TOTAL HT
+                        </p>
+                        <p>
+                            DISCOUNT ({{discount}}%)<br>
+                        </p>
+                    </td>			
+                    <td>
+                        <p class="font-weight-bold">
+                            {{ totalHt }}<span class="ml-1">MAD</span><br>
+                        </p>
+                        <p class="font-weight-bold">
+                            {{ reducedPrice }}<span class="ml-1">MAD</span><br>
+                        </p>
+                    </td>
+                </tr>
+                <tr class="" >
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <p>
+                            TOTAL TVA<br>
+                        </p>
+                        <p>
+                            <strong>TOTAL TTC:</strong>
+                        </p>
+                    </td>			
+                    <td>
+                        <p class="font-weight-bold">
+                            {{ totalTva }}<span class="ml-1">MAD</span><br>
+                        </p>
+                        <P>
+                            <strong>{{ totalTtc }}<span class="ml-1">MAD</span></strong>
+                        </P>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-5 d-flex justify-content-end">
+           
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="mt-5 d-flex justify-content-end">
+            <h6 class="py-5 mt-5 m-auto">Signature :</h6>
+        </div>
+        <br/>
+        <br/>
+        <div class="">
+           <hr class="bg-red" style="width: 100%;"/>
+           <p>
+            Examen SOAP, 18000 ENSA Kenitra, Morocco
+           </p>
+        </div>
+</div>

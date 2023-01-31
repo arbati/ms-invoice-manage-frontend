@@ -1,1 +1,83 @@
-<h1>Invoice</h1>
+<div class="container">
+
+    <div class="row align-items-center bg-white pt-3 pb-3">
+
+      <div class="col-3">
+        <input type="text" class="form-control" placeholder="Type invoice N° & press enter" #box (keyup.enter)="searchByNumber(box.value)" >
+      </div>
+      <div class="col-7">
+          <div class="form-row">
+                <label for="date1" class="col-1 col-form-label">From</label>
+                <input type="date" class="form-control col-3" (click)="getSearchStartDate($event)" value="{{searchStartDate}}"/>
+                <label for="date2" class="col-1 col-form-label">To</label>
+                <input type="date" class="form-control col-3" (click)="getSearchEndDate($event)" value="{{searchEndDate}}" />
+                <button type="button" class="form-control col-2 btn-secondary ml-4" (click)="refreshByDate()"><nb-icon icon="funnel-outline"></nb-icon></button>
+          </div>
+      </div>
+
+      <div class="col-2">
+          <button type="button" class="form-control btn-primary col-10 ml-2" routerLink="/pages/invoice/add" routerLinkActive="router-link-active" > + New invoice</button>
+      </div>
+
+    </div>
+
+
+<div class="row bg-white" style="margin-top: 10px;">
+<div class="col-12">
+          <table class="table" *ngIf="invoices | paginate: config">
+                <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Payment type</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Products count</th>
+                <th>Download</th>
+                <th>Detail</th>
+                <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of invoices">
+                <td>{{item.id}}</td>
+                <td>{{item.invoiceDate}}</td>
+                <td>{{item.paymentType}}</td>
+                <td>{{item.discount}}</td>
+                <td>{{item.customer.firstName}}</td>
+                <td>{{item.products.length}}</td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="download-outline" class="action text-secondary" routerLink="/pages/invoice/download/{{item.id}}"></nb-icon></div></td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" routerLink="/pages/invoice/setting/{{item.id}}"></nb-icon></div></td>
+                <td><div class="d-flex justify-content-around align-items-center"><nb-icon icon="trash-2-outline" class="action text-danger" (click)="open(dialog,item.id)"></nb-icon></div></td>
+                </tr>
+                </tbody>
+          </table>
+
+          <pagination-controls [id]="config.id" (pageChange)="pageChangeData($event)"></pagination-controls>
+           
+          <ng-template #dialog let-data let-ref="dialogRef">
+            <nb-card>
+              <nb-card-header class="bg-info" style="color: #ffffff;">Delete confirmation!</nb-card-header>
+              <nb-card-body>
+                Are you sure to delete this invoice N°: {{ data }} ?
+              </nb-card-body>
+              <nb-card-footer>
+                <div class="row">
+                  <div class="col-6"> </div>
+                  <div class="col-3">
+                    <button class="btn btn-danger"  (click)="confirmDelete(data,dialog)">Yes</button>
+                  </div>
+                  <div class="col-3">
+                    <button class="btn btn-success"  (click)="ref.close()">No</button>
+                  </div>
+                </div>
+              </nb-card-footer>
+            </nb-card>
+          </ng-template>
+         
+
+</div>    
+          
+</div>
+
+</div>

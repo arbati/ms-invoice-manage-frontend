@@ -7,20 +7,24 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { ListproductsComponent } from './listproducts/listproducts.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ListproductsComponent,
-    AddproductComponent
+    AddproductComponent,
+    EditproductComponent
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     NbIconModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     ]
 })
 export class ProductsModule { }

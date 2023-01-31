@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from './products';
 
-const baseUrl = "http://localhost:8080/MS-PRODUCT/sapi/v1/product"
+const baseUrl = "http://localhost:8080/MS-PRODUCT/api/v1/product"
+//const baseUrl = "http://localhost:8087/api/v1/product"
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,18 @@ export class ProductsService {
 
   getAll():Observable<Product[]>{
     return this.http.get<Product[]>(baseUrl);
+  };
+  count():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/count`);
+  };
+  availableProducts():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/available`);
+  };
+  unavailableProducts():Observable<number>{
+    return this.http.get<number>(`${baseUrl}/unavailable`);
+  };
+  getById(id:number):Observable<Product>{
+    return this.http.get<Product>(`${baseUrl}/${id}`);
   };
   add(data: Product):Observable<Product>{
     return this.http.post<Product>(baseUrl,data)
