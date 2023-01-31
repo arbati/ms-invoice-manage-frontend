@@ -57,7 +57,7 @@ export class customerinfoComponent implements OnInit {
         type: 'bar',
         name: 'Profit',
         itemStyle: {
-          color: this.accentColor
+          color: colors.secondary
       }
       }]
     };

@@ -74,10 +74,13 @@ export class ListInvoiceComponent implements OnInit {
 
   getSearchStartDate(event: any) {
     this.searchStartDate = event.target.value;
+   // console.log(this.searchStartDate);
   }
 
   getSearchEndDate(event: any) {
     this.searchEndDate = event.target.value;
+    //console.log(this.searchEndDate );
+
   }
 
 
