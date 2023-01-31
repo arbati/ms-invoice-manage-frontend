@@ -47,7 +47,7 @@
                 <td>{{item.customer.firstName}}</td>
                 <td>{{item.products.length}}</td>
                 <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="download-outline" class="action text-secondary" routerLink="/pages/invoice/download/{{item.id}}"></nb-icon></div></td>
-                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" routerLink="/pages/invoice/setting/{{item.id}}"></nb-icon></div></td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" (click)="editInvoice(item.id)"></nb-icon></div></td>
                 <td><div class="d-flex justify-content-around align-items-center"><nb-icon icon="trash-2-outline" class="action text-danger" (click)="open(dialog,item.id)"></nb-icon></div></td>
                 </tr>
                 </tbody>
