@@ -1,6 +1,5 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NbDialogRef, NbDialogService, NbToastRef, NbToastrService } from '@nebular/theme';
 import { PaginationInstance } from 'ngx-pagination';
 import { title } from 'process';
@@ -14,7 +13,7 @@ import { InvoiceService } from '../invoice.service';
 })
 export class ListInvoiceComponent implements OnInit {
 
-  constructor(private invoiceService: InvoiceService,private toastrService: NbToastrService, private nbToastrService: NbToastrService, private dialogService: NbDialogService,private router:Router) { }
+  constructor(private invoiceService: InvoiceService,private toastrService: NbToastrService, private nbToastrService: NbToastrService, private dialogService: NbDialogService) { }
 
   invoices!: Invoice[];
   searchStartDate: string = "2022-01-17";
@@ -125,8 +124,4 @@ export class ListInvoiceComponent implements OnInit {
      this.dialogRef = this.dialogService.open(dialog, {context: id}); 
   }
 
-  editInvoice(id: string){
-    console.log(id);
-      this.router.navigate(['/pages/invoice/add',{id}]);
-  }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Customer } from '../../customers/customers';
 import { CustomersService } from '../../customers/customers.service';
@@ -17,60 +16,38 @@ import { InvoiceService } from '../invoice.service';
 })
 export class AddinvoiceComponent implements OnInit {
   
-  id:string;
+
   invoice : Invoice = new Invoice();
   customers: Customer[];
   products: Product[];
-  invoiceTemplateForm:FormGroup;
-  up:boolean=false;
-  submitted = false;
 
   constructor(private fb:FormBuilder,
       private dialogService: NbDialogService,
       private productService: ProductsService,
       private customerService: CustomersService,
-      private invoiceService: InvoiceService,
-      private route: ActivatedRoute
+      private invoiceService: InvoiceService
       )
        { }
 
   ngOnInit(): void {
-
-    this.invoiceTemplateForm=this.fb.group({
-      id:[,Validators.required],
-      invoiceDate:[new Date(),Validators.required],
-      discount:[,Validators.required],
-      paymentType:['',Validators.required],
-    })
-
     this.getAllProducts();
     this.getAllCustomers();
-    this.id = this.route.snapshot.params['id'];
-    this.getInvoiceById();
-    if(this.id){
-      this.up = true;
-    }else{
-      this.up = false;
-    }
   }
 
-
-
-getInvoiceById(){
-  this.invoiceService.getInvoiceById(this.id).subscribe( data =>{
-    this.invoice = data ;
-    this.customerSelect = this.invoice.customer;
-    this.listSelectProducts = this.invoice.products;
-    console.log(data);
-  })
-}
-
-
 invoiceForm=this.fb.group({
-  
+
 })  
 
+invoiceTemplateForm=this.fb.group({
+  id:[,Validators.required],
+  invoiceDate:[new Date(),Validators.required],
+  discount:[,Validators.required],
+  paymentType:['',Validators.required],
+})
 
+onSubmit(){
+
+}
 dialogRef:any;
 openWindow(dialogInvoice: TemplateRef<any>) {
   this.dialogRef = this.dialogService.open(
@@ -84,20 +61,12 @@ openWindow(dialogInvoice: TemplateRef<any>) {
 }
 
 onSubmitinvoiceTemplateForm(){
-  this.submitted = true;
-  if(this.invoiceTemplateForm.invalid){
-    return;
-  }
   this.invoice.id = this.invoiceTemplateForm.get('id').value
   this.invoice.invoiceDate = this.invoiceTemplateForm.get('invoiceDate').value
   this.invoice.discount = this.invoiceTemplateForm.get('discount').value
   this.invoice.paymentType = this.invoiceTemplateForm.get('paymentType').value
   console.log(this.invoice);
   this.dialogRef.close();
-}
-
-get f(){
-  return this.invoiceTemplateForm.controls;
 }
 
 dialogCustomer:any;
@@ -164,6 +133,5 @@ onValidCustomer(){
     console.log(data);
   })
 }
-
 
 }
