@@ -1,6 +1,7 @@
 <div class="mt-4 card">
     <div class="card-body">
-      <div class="card-title fs-6 text-muted">Add Invoice</div>
+      <div class="card-title fs-6 text-muted" *ngIf="!up">Add Invoice</div>
+      <div class="card-title fs-6 text-muted" *ngIf="up">Edit Invoice</div>
       <form [formGroup]="invoiceForm" class="mt-4 py-2" >
         <nb-card>
           <nb-card-header>
@@ -118,14 +119,14 @@
         </nb-card>
         <div class="d-grid d-md-flex justify-content-md-end">
         <button type="submit" class="btn btn-success" (click)="onValidCustomer()">Valider</button>
-        </div>
+      </div>
       </form>
     </div>
   </div>
   
 
 <ng-template #invoiceTemplate let-data let-ref="dialogRef">
-  <form [formGroup]="invoiceTemplateForm" id="invoiceTemplateForm">
+  <form [formGroup]="invoiceTemplateForm" (ngSubmit)="onSubmitinvoiceTemplateForm()" >
     <nb-card>
     <nb-card-body>
       <div class="mb-3">
@@ -136,13 +137,21 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="id" class="label">Num</label>
-          <input type="text" formControlName="id" nbInput fullWidth id="id" placeholder="Num Invoice">
+          <input type="text" formControlName="id" nbInput fullWidth  placeholder="Num Invoice"
+          [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
+          <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+            <div *ngIf="f.id.errors.required">Id is required</div>
+        </div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputDate" class="label">Date</label>
-          <input type="date" formControlName="invoiceDate" nbInput fullWidth id="inputDate" placeholder="Date Invoice">
+          <input type="date" formControlName="invoiceDate" nbInput fullWidth  placeholder="Date Invoice"
+          [ngClass]="{ 'is-invalid': submitted && f.invoiceDate.errors }">
+          <div *ngIf="submitted && f.invoiceDate.errors" class="invalid-feedback">
+            <div *ngIf="f.invoiceDate.errors.required">Id is required</div>
+        </div>
         </div>
       </div>
     </div>
@@ -150,18 +159,26 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputDiscount" class="label">Discount</label>
-          <input type="number" formControlName="discount" nbInput fullWidth id="inputDiscount" placeholder="Discount">
+          <input type="number" formControlName="discount" nbInput fullWidth  placeholder="Discount"
+          [ngClass]="{ 'is-invalid': submitted && f.discount.errors }">
+          <div *ngIf="submitted && f.discount.errors" class="invalid-feedback">
+            <div *ngIf="f.discount.errors.required">Discount is required</div>
+        </div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputPayement" class="label">Payement</label>
-          <input type="text" nbInput formControlName="paymentType" fullWidth id="inputPayement" placeholder="Payement">
+          <input type="text" nbInput formControlName="paymentType" fullWidth placeholder="Payement"
+          [ngClass]="{ 'is-invalid': submitted && f.paymentType.errors }">
+          <div *ngIf="submitted && f.paymentType.errors" class="invalid-feedback">
+            <div *ngIf="f.paymentType.errors.required">PaymentType is required</div>
+        </div>
         </div>
       </div>
     </div>
     <div>
-      <button type="submit" class="btn btn-success" (click)="onSubmitinvoiceTemplateForm()" nbButton>Add Invoice</button>
+      <button type="submit" class="btn btn-success">Add Invoice</button>
     </div>
   </nb-card-body>
 </nb-card>
