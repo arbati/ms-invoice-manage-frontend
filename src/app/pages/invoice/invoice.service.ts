@@ -45,9 +45,15 @@ export class InvoiceService {
   }
 
 
-  getInvoicesByTotal():Observable<Map<number,number>>{
+  getInvoicesByMonthTotal():Observable<Map<number,number>>{
 
     return this.http.get<Map<number,number>>(environment.hostNameMsInvoice+"/invoiceMonthTotal");
+    
+  }
+
+  getInvoicesByTotal():Observable<Array<InvoiceTotal>>{
+
+    return this.http.get<Array<InvoiceTotal>>(environment.hostNameMsInvoice+"/invoiceTotal");
     
   }
 
