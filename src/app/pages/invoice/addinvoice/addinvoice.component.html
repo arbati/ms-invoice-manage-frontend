@@ -1,13 +1,12 @@
 <div class="mt-4 card">
     <div class="card-body">
-      <div class="card-title fs-6 text-muted" *ngIf="!up">Add Invoice</div>
-      <div class="card-title fs-6 text-muted" *ngIf="up">Edit Invoice</div>
+      <div class="card-title fs-6 text-muted" >Invoice detail</div>
       <form [formGroup]="invoiceForm" class="mt-4 py-2" >
         <nb-card>
           <nb-card-header>
-            Invoice Form
+            Invoice
             <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success" (click)="openWindow(invoiceTemplate)" nbButton>Add Invoice</button>
+            <button type="submit" class="btn btn-success" (click)="openWindow(invoiceTemplate)"><nb-icon icon="info-outline"></nb-icon> Invoice info</button>
             </div>
           </nb-card-header>
           <nb-card-body>
@@ -15,7 +14,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputNum" class="label">Num</label>
-                  <input type="number" value="{{invoice?.id}}" nbInput fullWidth id="inputNum" placeholder="Num Invoice" readonly>
+                  <input type="text" value="{{invoice?.id}}" nbInput fullWidth id="inputNum" placeholder="Num Invoice" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
@@ -41,11 +40,12 @@
             </div>
           </nb-card-body>
         </nb-card>
+
         <nb-card>
           <nb-card-header>
-            Customer 
+            Invoice customer 
             <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success" (click)="openWindowCustomer(customerTemplate)" nbButton>Add Customer</button>
+            <button type="submit" class="btn btn-success" (click)="openWindowCustomer(customerTemplate)"> <nb-icon icon="person-outline"></nb-icon> Customer</button>
             </div>
           </nb-card-header>
           <nb-card-body>
@@ -53,13 +53,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputFirstName" class="label">FirstName</label>
-                  <input type="text" value="{{customerSelect.firstName}}" nbInput fullWidth id="FirstName" placeholder="FirstName" readonly>
+                  <input type="text" value="{{customerSelect?.firstName}}" nbInput fullWidth id="FirstName" placeholder="FirstName" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputLastName" class="label">LastName</label>
-                  <input type="text" value="{{customerSelect.lastName}}" nbInput fullWidth id="inputLastName" placeholder="LastName" readonly>
+                  <input type="text" value="{{customerSelect?.lastName}}" nbInput fullWidth id="inputLastName" placeholder="LastName" readonly>
                 </div>
               </div>
             </div>
@@ -67,13 +67,13 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputEmail" class="label">Email</label>
-                  <input type="email" value="{{customerSelect.email}}" nbInput fullWidth id="inputEmail" placeholder="Email" readonly>
+                  <input type="email" value="{{customerSelect?.email}}" nbInput fullWidth id="inputEmail" placeholder="Email" readonly>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputAddress" class="label">Address</label>
-                  <input type="text" value="{{customerSelect.address}}" nbInput fullWidth id="inputAddress" placeholder="Address" readonly>
+                  <input type="text" value="{{customerSelect?.address}}" nbInput fullWidth id="inputAddress" placeholder="Address" readonly>
                 </div>
               </div>
             </div>
@@ -81,17 +81,18 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="inputCity" class="label">City</label>
-                  <input type="text" value="{{customerSelect.city}}" nbInput fullWidth id="inputCity" placeholder="City" readonly>
+                  <input type="text" value="{{customerSelect?.city}}" nbInput fullWidth id="inputCity" placeholder="City" readonly>
                 </div>
               </div>
             </div>
           </nb-card-body>
         </nb-card>
+
         <nb-card>
           <nb-card-header>
-            Products 
+            Invoice products 
             <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success" (click)="openWindowProduct(productTemplate)" nbButton>Add Products</button>
+            <button type="submit" class="btn btn-success" (click)="openWindowProduct(productTemplate)"><nb-icon icon="shopping-cart-outline"></nb-icon> Products</button>
             </div>
           </nb-card-header>
           <nb-card-body>
@@ -103,6 +104,7 @@
                   <th scope="col">Price</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Total</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -111,14 +113,16 @@
                   <td>{{ps.designation}}</td>
                   <td>{{ps.price}}</td>
                   <td>{{ps.depositQuantity}}</td>
-                  <td></td>
+                  <td>{{ps.price * ps.depositQuantity}}</td>
+                  <td><button class="btn-danger" (click)="deleteProductSelected(ps)"> <nb-icon icon="close-outline"></nb-icon></button></td>
                 </tr>
               </tbody>
             </table>
           </nb-card-body>
         </nb-card>
+
         <div class="d-grid d-md-flex justify-content-md-end">
-        <button type="submit" class="btn btn-success" (click)="onValidCustomer()">Valider</button>
+        <button type="submit" class="btn btn-secondary" (click)="onValidCustomer()"><nb-icon icon="save-outline"></nb-icon> Save invoice</button>
       </div>
       </form>
     </div>
@@ -126,32 +130,24 @@
   
 
 <ng-template #invoiceTemplate let-data let-ref="dialogRef">
-  <form [formGroup]="invoiceTemplateForm" (ngSubmit)="onSubmitinvoiceTemplateForm()" >
+  <form [formGroup]="invoiceTemplateForm">
     <nb-card>
     <nb-card-body>
       <div class="mb-3">
-        <h6 class="card-title">Ajouter Invoice</h6>
+        <h6 class="card-title">Invoice info</h6>
       </div>
       <hr>
       <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="id" class="label">Num</label>
-          <input type="text" formControlName="id" nbInput fullWidth  placeholder="Num Invoice"
-          [ngClass]="{ 'is-invalid': submitted && f.id.errors }">
-          <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-            <div *ngIf="f.id.errors.required">Id is required</div>
-        </div>
+          <input type="text" formControlName="id" nbInput fullWidth  value="{{invoice?.id}}" placeholder="Num Invoice">
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputDate" class="label">Date</label>
-          <input type="date" formControlName="invoiceDate" nbInput fullWidth  placeholder="Date Invoice"
-          [ngClass]="{ 'is-invalid': submitted && f.invoiceDate.errors }">
-          <div *ngIf="submitted && f.invoiceDate.errors" class="invalid-feedback">
-            <div *ngIf="f.invoiceDate.errors.required">Id is required</div>
-        </div>
+          <input type="date" formControlName="invoiceDate" value="{{invoice?.invoiceDate}}" nbInput fullWidth  placeholder="Date Invoice">
         </div>
       </div>
     </div>
@@ -159,26 +155,19 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputDiscount" class="label">Discount</label>
-          <input type="number" formControlName="discount" nbInput fullWidth  placeholder="Discount"
-          [ngClass]="{ 'is-invalid': submitted && f.discount.errors }">
-          <div *ngIf="submitted && f.discount.errors" class="invalid-feedback">
-            <div *ngIf="f.discount.errors.required">Discount is required</div>
-        </div>
+          <input type="number" formControlName="discount" value="{{invoice?.discount" nbInput fullWidth  placeholder="Discount">
+        
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputPayement" class="label">Payement</label>
-          <input type="text" nbInput formControlName="paymentType" fullWidth placeholder="Payement"
-          [ngClass]="{ 'is-invalid': submitted && f.paymentType.errors }">
-          <div *ngIf="submitted && f.paymentType.errors" class="invalid-feedback">
-            <div *ngIf="f.paymentType.errors.required">PaymentType is required</div>
-        </div>
+          <input type="text" nbInput formControlName="paymentType" value="{{invoice?.paymentType}" fullWidth placeholder="Payement">
         </div>
       </div>
     </div>
     <div>
-      <button type="submit" class="btn btn-success">Add Invoice</button>
+      <button type="submit" class="btn btn-success" (click)="onSubmitinvoiceTemplateForm()"><nb-icon icon="save-outline"></nb-icon> Save</button>
     </div>
   </nb-card-body>
 </nb-card>
@@ -189,18 +178,18 @@
   <nb-card>
     <nb-card-body>
       <div class="mb-3">
-        <h6 class="card-title">Ajouter Customer</h6>
+        <h6 class="card-title">Select customer</h6>
       </div>
-      <table class="table table-striped mb-2">
+      <table class="table table-striped mb-2" style="width: 800px;">
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">FirstName</th>
-            <th scope="col">LastName</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
             <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">City</th>
-            <th scope="col">Action</th>
+            <th scope="col">Select</th>
           </tr>
         </thead>
         <tbody>
@@ -212,45 +201,45 @@
             <td>{{c.address}}</td>
             <td>{{c.city}}</td>
             <td>
-              <button class="btn btn-info" (click)="selectCustomer(c)">Select</button>
+              <button class="btn btn-primary" (click)="selectCustomer(c)"><nb-icon icon="checkmark-outline"></nb-icon></button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-success btn-sm mb-4" (click)="closeCustomersPopUp()" >Close</button>
+      <hr style="width: 100%;"/>
+      <button type="button" class="btn btn-secondary btn-sm mb-4" (click)="closeCustomersPopUp()">Close</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
 
 <ng-template #productTemplate let-data>
-  <nb-card>
+  <nb-card class="col-12">
     <nb-card-body>
       <div class="mb-3">
-        <h6 class="card-title">Ajouter Les Produits</h6>
+        <h6 class="card-title">Select product</h6>
       </div>
-      <table class="table table-striped">
+      <table class="table table-striped" style="width: 800px;">
         <thead>
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Designation</th>
             <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Action</th>
+            <th scope="col">Select</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of products">
-            <td>{{p.id}}</td>
-            <td>{{p.designation}}</td>
-            <td>{{p.price}}</td>
-            <td>{{p.depositQuantity}}</td>
+          <tr *ngFor="let prd of allProducts">
+            <td>{{prd.id}}</td>
+            <td>{{prd.designation}}</td>
+            <td>{{prd.price}}</td>
             <td>
-              <button type="button" class="btn btn-info" (click)="selectProduct(p)" >Select</button>
+              <button type="button" class="btn btn-primary" (click)="selectProduct(prd)" ><nb-icon icon="checkmark-outline"></nb-icon></button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button type="button" class="btn btn-success btn-sm" (click)="closeProductPopUp()" >Confirme</button>
+      <hr style="width: 100%;"/>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="closeProductPopUp()" >Close</button>
     </nb-card-body>
   </nb-card>
 </ng-template>
