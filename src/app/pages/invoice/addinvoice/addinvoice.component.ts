@@ -135,7 +135,7 @@ closeProductPopUp(){
 getAllProducts(){
   this.productService.getAll().subscribe(data=>{
     this.allProducts=data;
-    this.products = data;
+    //this.products = data;
   })
 }
 
@@ -173,7 +173,7 @@ closeCustomersPopUp(){
 
 onValidCustomer(){
   this.invoice.customer = this.customerSelect
-  this.invoice.products = this.products
+  this.invoice.products = this.listSelectProducts;
 
   if(this.action==true){
     this.invoiceService.addInvoice(this.invoice).subscribe(data=>{
@@ -183,9 +183,7 @@ onValidCustomer(){
     this.invoiceService.updateInvoice(this.id,this.invoice).subscribe(data=>{
       this.showToast("invoice has succefully updated!","Update invoice",'success');
     });
-  }
-
-  
+  }  
 }
 
 
