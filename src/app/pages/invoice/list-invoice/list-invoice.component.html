@@ -8,9 +8,9 @@
       <div class="col-7">
           <div class="form-row">
                 <label for="date1" class="col-1 col-form-label">From</label>
-                <input type="date" class="form-control col-3" (click)="getSearchStartDate($event)" value="{{searchStartDate}}"/>
+                <input type="date" class="form-control col-3" (change)="getSearchStartDate($event)" value="{{searchStartDate}}"/>
                 <label for="date2" class="col-1 col-form-label">To</label>
-                <input type="date" class="form-control col-3" (click)="getSearchEndDate($event)" value="{{searchEndDate}}" />
+                <input type="date" class="form-control col-3" (change)="getSearchEndDate($event)" value="{{searchEndDate}}" />
                 <button type="button" class="form-control col-2 btn-secondary ml-4" (click)="refreshByDate()"><nb-icon icon="funnel-outline"></nb-icon></button>
           </div>
       </div>
@@ -47,7 +47,7 @@
                 <td>{{item.customer.firstName}}</td>
                 <td>{{item.products.length}}</td>
                 <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="download-outline" class="action text-secondary" routerLink="/pages/invoice/download/{{item.id}}"></nb-icon></div></td>
-                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" routerLink="/pages/invoice/setting/{{item.id}}"></nb-icon></div></td>
+                <td> <div class="d-flex justify-content-around align-items-center"><nb-icon icon="settings-outline" class="action text-success" (click)="editInvoice(item.id)"></nb-icon></div></td>
                 <td><div class="d-flex justify-content-around align-items-center"><nb-icon icon="trash-2-outline" class="action text-danger" (click)="open(dialog,item.id)"></nb-icon></div></td>
                 </tr>
                 </tbody>

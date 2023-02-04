@@ -59,24 +59,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
-    title: 'Tools',
-    icon: 'settings',
-    children: [
-      {
-        title: 'list',
-        link: '/pages/tools/list',
-      }]
-  },
-
-
-
-
-
-
-
-
-  {
-    title: 'Auth',
+    title: 'Account',
     icon: 'lock-outline',
     children: [
       {

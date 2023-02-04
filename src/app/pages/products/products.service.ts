@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Product } from './products';
 
-const baseUrl = "http://localhost:8080/MS-PRODUCT/api/v1/product"
-//const baseUrl = "http://localhost:8087/api/v1/product"
+const baseUrl = environment.hostName + "/MS-PRODUCT/api/v1/product"
 
 @Injectable({
   providedIn: 'root'

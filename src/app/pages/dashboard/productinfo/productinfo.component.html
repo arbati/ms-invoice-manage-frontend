@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row d-flex justify-content-between">
         <div class="card analytics1">
-            <p class="title text-muted mt-2 ml-2">Product By Price</p>
+            <p class="title text-muted mt-2 ml-2"><b>Product By Price</b></p>
             <div class="h-100" echarts [options]="chart" (chartInit)="onChartInit($event)"></div>
         </div>
         <div class="card analytics2">
-            <p class="title mt-2 ml-2">Product Status</p>
+            <p class="title mt-2 ml-2"><b>Product Status</b></p>
             <div class="h-50" echarts [options]="pieChart" (chartInit)="onPieChartInit($event)"></div>
             <div class="mt-3">
                 <div class="d-flex justify-content-around align-items-center">

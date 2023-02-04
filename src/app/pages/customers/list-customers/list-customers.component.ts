@@ -10,6 +10,7 @@ import { CustomersService } from '../customers.service';
 export class ListCustomersComponent implements OnInit {
 
   customers: Customer[];
+  customersAll: Customer[];
   count:number=0
   isLoading:boolean = false;
   showData:boolean = false;
@@ -38,20 +39,6 @@ export class ListCustomersComponent implements OnInit {
     )
   }
 
-  getByName(){
-    if(!this.nameSearch){
-      this.getCustomers();
-    } 
-    this.customerService.getByFirstName(this.nameSearch)
-    .subscribe(res=>{
-      this.customers=res;
-      this.count=this.customers.length;
-    },err=>{
-      this.count=0;
-      console.log(err.error)
-    })
-  };
-
   deleteCustomer(id:number){
     if (confirm('Are you sure you want to delete this customer?')){
       this.customerService.delete(id)
@@ -61,4 +48,27 @@ export class ListCustomersComponent implements OnInit {
       })
     }
   }
+
+  search(event:any){
+    let filter = event.target?.value;
+    if(filter != null && filter != ''){
+      this.customers = this.customers.filter(c => c.firstName.includes(filter));
+    }else{
+      this.customers = this.customersAll;
+    }
+  }
+
+  // search(){
+  //   if(!this.nameSearch){
+  //     this.getCustomers();
+  //   } 
+  //   this.customerService.search(this.nameSearch)
+  //   .subscribe((res: any)=>{
+  //     this.customers=res;
+  //     this.count=this.customers.length;
+  //   },(err: { error: any; })=>{
+  //     this.count=0;
+  //     console.log(err.error)
+  //   })
+  // };
 }

@@ -1,5 +1,8 @@
-<div class="card analytics">
-    <div class="card-body">
-        customer chart
+<div class="container">
+    <div class="row d-flex justify-content-between">
+        <div class="card analytics1">
+            <p class="title text-muted mt-2 ml-2"><b>Customer By City</b></p>
+            <div class="h-100" echarts [options]="chart" (chartInit)="onChartInit($event)"></div>
+        </div>
     </div>
 </div>

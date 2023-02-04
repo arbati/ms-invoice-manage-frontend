@@ -9,45 +9,53 @@ import { InvoicePage } from './invoicePage.model';
   providedIn: 'root'
 })
 export class InvoiceService {
+ 
+  baseUrl:string= environment.hostName + "/MS-INVOICE/v1/invoice";
 
   constructor(private http:HttpClient) { }
 
 
   getInvoiceById(id:String):Observable<Invoice>{
 
-    return this.http.get<Invoice>(environment.hostNameMsInvoice + "/" + id);
+    return this.http.get<Invoice>(this.baseUrl + "/" + id);
 
   }
 
   searchInvoice(startDate: any, endDate:any , page:number , size:number):Observable<InvoicePage>{
 
-    return this.http.get<InvoicePage>(environment.hostNameMsInvoice + "/search?startDate="+startDate+"&endDate="+endDate+"&page="+page+"&size="+size);
+    return this.http.get<InvoicePage>(this.baseUrl + "/search?startDate="+startDate+"&endDate="+endDate+"&page="+page+"&size="+size);
 
   }
 
   addInvoice(invoice:Invoice):Observable<Invoice>{
 
-    return this.http.post<Invoice>(environment.hostNameMsInvoice , invoice);
+    return this.http.post<Invoice>(this.baseUrl , invoice);
 
   }
 
   deleteInvoice(id:string){
 
-    return this.http.delete(environment.hostNameMsInvoice + "/" + id);
+    return this.http.delete(this.baseUrl + "/" + id);
 
   }
 
 
   updateInvoice(id:string , invoice:Invoice):Observable<Invoice>{
 
-    return this.http.put<Invoice>(environment.hostNameMsInvoice + "/" + id , invoice);
+    return this.http.put<Invoice>(this.baseUrl + "/" + id , invoice);
 
   }
 
 
-  getInvoicesByTotal():Observable<Map<number,number>>{
+  getInvoicesByMonthTotal():Observable<Map<number,number>>{
 
-    return this.http.get<Map<number,number>>(environment.hostNameMsInvoice+"/invoiceMonthTotal");
+    return this.http.get<Map<number,number>>(this.baseUrl+"/invoiceMonthTotal");
+    
+  }
+
+  getInvoicesByTotal():Observable<Array<InvoiceTotal>>{
+
+    return this.http.get<Array<InvoiceTotal>>(this.baseUrl+"/invoiceTotal");
     
   }
 

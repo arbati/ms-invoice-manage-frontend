@@ -16,7 +16,7 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppinfosComponent } from './appinfos/appinfos.component';
-import { CustomerinfoComponent } from './customerinfo/customerinfo.component';
+import { customerinfoComponent } from './customerinfo/customerinfo.component';
 import { ProductinfoComponent } from './productinfo/productinfo.component';
 import { InvoiceinfoComponent } from './invoiceinfo/invoiceinfo.component';
 
@@ -40,7 +40,7 @@ import { InvoiceinfoComponent } from './invoiceinfo/invoiceinfo.component';
   declarations: [
     DashboardComponent,
     AppinfosComponent,
-    CustomerinfoComponent,
+    customerinfoComponent,
     ProductinfoComponent,
     InvoiceinfoComponent,
   ],

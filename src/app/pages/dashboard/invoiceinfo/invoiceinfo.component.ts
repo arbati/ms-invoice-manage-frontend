@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { colors } from '../colors';
 import { InvoiceService } from '../../Invoice/invoice.service';
 import { InvoiceMonthTotal } from '../../invoice/invoice';
+import { color } from 'html2canvas/dist/types/css/types/color';
 
 @Component({
   selector: 'ngx-invoiceinfo',
@@ -25,7 +26,7 @@ export class InvoiceinfoComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.invoiceService.getInvoicesByTotal().subscribe(map => {
+    this.invoiceService.getInvoicesByMonthTotal().subscribe(map => {
       for (const key in map) {
         if (map.hasOwnProperty(key)) {
           this.xAxisData.push(this.monthOfYear[parseInt(key)-1]);
@@ -35,7 +36,6 @@ export class InvoiceinfoComponent implements OnInit {
         this.chartCobfig();
     });
 
-    
   }
 
 
@@ -65,10 +65,10 @@ export class InvoiceinfoComponent implements OnInit {
       },
       series: [{
         data: this.yAxisData,
-        type: 'bar',
+        type: 'line',
         name: 'Profit',
         itemStyle: {
-          color: this.accentColor
+          color: colors.success
       }
       }]
     };
