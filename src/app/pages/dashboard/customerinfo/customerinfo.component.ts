@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { colors } from '../colors';
+import { CustomersService } from '../../customers/customers.service';
 
 @Component({
   selector: 'ngx-customerinfo',
@@ -9,22 +10,46 @@ import { colors } from '../colors';
 export class customerinfoComponent implements OnInit {
 
   chart: any;
-  xAxisData:Array<string>;
-  yAxisData:Array<number>;
+  xAxisData:Array<string>=[];
+  yAxisData:Array<number>=[];
   primaryColor:any=colors.primary;
   accentColor:any=colors.accent;
   private chartInstance: any;
+  cityMap = new Map<string, number>();
 
 
-  constructor() { }
+  constructor(private service:CustomersService) { }
 
 
   ngOnInit(): void {
    
-    this.xAxisData=["Rabat", "Casablanca", "Agadir", "Tanger", "Kenitra", "Essaouira", "Asfi", "Tetouan"];
-    this.yAxisData=[1541,21541,4574,6325,2154,1215,9856,45874];
+    this.mappingCityNameAndCount();
+     this.chartCobfig();
+  }
 
-    this.chartCobfig();
+   mappingCityNameAndCount(){
+    this.service.getAll().subscribe({
+      next: data=>{
+        let map = this.cityCount(data);
+        for (const key in map) {
+          this.xAxisData.push(key);
+          this.yAxisData.push(map[key]);
+        }
+      },
+      error: error=>{}
+    });
+   }
+
+
+  cityCount(customers:any):Map<string, number> {
+    return customers.reduce((cityMap, customer) => {
+      if (!cityMap[customer.city]) {
+        cityMap[customer.city] = 1;
+      } else {
+        cityMap[customer.city]++;
+      }
+      return cityMap;
+    }, {});
   }
 
 
@@ -49,7 +74,7 @@ export class customerinfoComponent implements OnInit {
         showDelay: 0,
         transitionDuration: 0.3,
         formatter: function (params) {
-          return `<b">${params['name']}</b> : ${params['value']} Dhs`;
+          return `<b">${params['name']}</b> : ${params['value']}`;
         }
       },
       series: [{
@@ -65,13 +90,6 @@ export class customerinfoComponent implements OnInit {
 
    onChartInit(ec:any) {
     this.chartInstance = ec;
-    }
-
-
-    updateChart(){
-      this.chart.xAxis.data=["2020","2021","2022","2023"];
-      this.chart.series[0].data=[1541,21541,4574,6325];
-      this.chartInstance.setOption(this.chart);
     }
 
 

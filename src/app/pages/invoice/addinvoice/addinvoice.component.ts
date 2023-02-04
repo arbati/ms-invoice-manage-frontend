@@ -21,11 +21,11 @@ export class AddinvoiceComponent implements OnInit {
   invoice : Invoice = new Invoice();
   customers: Customer[];
   allProducts: Product[];
-  products: Product[];
+  //products: Product[];
   listSelectProducts:any[]=[];
   action:boolean = true;
-  invoiceForm=this.fb.group({
-  }) 
+  dialogRef:any;
+  invoiceForm=this.fb.group({});
   //invoiceTemplateForm:FormGroup;
 
   constructor(private fb:FormBuilder,
@@ -76,7 +76,7 @@ showToast(title:any , message:any, status:any){
 }
 
 
-dialogRef:any;
+
 openWindow(dialogInvoice: TemplateRef<any>) {
   this.dialogRef = this.dialogService.open(
     dialogInvoice,
@@ -135,7 +135,6 @@ closeProductPopUp(){
 getAllProducts(){
   this.productService.getAll().subscribe(data=>{
     this.allProducts=data;
-    //this.products = data;
   })
 }
 

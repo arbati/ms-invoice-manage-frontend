@@ -44,8 +44,10 @@ export class EditCustomerComponent implements OnInit {
       lastName: this.lastName,
       email: this.email,
       address: this.address,
-      city: this.city,
+      city: this.city
     }
+
+    console.log(updatedCustomer);
     this.customerService.update(this.id,updatedCustomer).subscribe(
       res => {
         //console.log("Updated");

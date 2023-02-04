@@ -111,7 +111,7 @@ export class ProductinfoComponent implements OnInit {
     this.pieChartInstance.setOption(this.pieChart);
   }
   // Method to Init the pie 
-  onChartInit(ec) {
+  onChartInit(ec:any) {
   this.chartInstance = ec;
   }
   // Method to Init the pie 
